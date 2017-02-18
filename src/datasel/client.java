@@ -71,6 +71,7 @@ public class client {
         try {
             Gson gson = new Gson();
             String sRet = gson.toJson(menu);
+            sRet = new String(Base64.getEncoder().encode(sRet.getBytes()));
             sRet = URLEncoder.encode(sRet, "UTF-8");
             return sRet;
         } catch (Exception exc) {
