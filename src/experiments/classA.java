@@ -9,7 +9,7 @@ package experiments;
  *
  * @author csc190
  */
-public class classA {
+public class classA implements java.io.Serializable {
     public String val;
     public classB refB;
 }

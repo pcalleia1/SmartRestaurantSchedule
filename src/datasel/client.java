@@ -82,11 +82,20 @@ public class client {
     }
 
     public static void main(String[] args) {
-        //String op = args[0];
+        String op = args[0];
         Menu menu = buildMenu();
-        String menuContent = menuToStr(menu);
-        String menuJson = menuToJsonStr(menu);
+        String url = "https://localhost/datasel.php";
+        String menuContent = Utils.toStr(menu);
+        String datastr = op.equals("1")
+                ? "op=uploadMenu&val=" + menuContent
+                : "op=getWaitTime&val=101";
+        try {
+            String response = Utils.httpsPost(url, datastr);
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
         int k = 0;
+
     }
 
 }

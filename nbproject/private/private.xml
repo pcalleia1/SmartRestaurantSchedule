@@ -5,7 +5,10 @@
         <group>
             <file>file:/home/csc190/Desktop/csc190/sample_java_server/datasel/src/datasel/model/Dish.java</file>
             <file>file:/home/csc190/Desktop/csc190/sample_java_server/datasel/src/datasel/model/Menu.java</file>
+            <file>file:/home/csc190/Desktop/csc190/sample_java_server/datasel/src/experiments/classB.java</file>
+            <file>file:/home/csc190/Desktop/csc190/sample_java_server/datasel/src/experiments/testRunner.java</file>
             <file>file:/home/csc190/Desktop/csc190/sample_java_server/datasel/src/datasel/client.java</file>
+            <file>file:/home/csc190/Desktop/csc190/sample_java_server/datasel/src/experiments/classA.java</file>
             <file>file:/home/csc190/Desktop/csc190/sample_java_server/datasel/src/datasel/model/Step.java</file>
             <file>file:/home/csc190/Desktop/csc190/sample_java_server/datasel/src/datasel/model/Procedure.java</file>
         </group>
