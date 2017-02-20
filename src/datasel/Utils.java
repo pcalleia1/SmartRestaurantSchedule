@@ -17,6 +17,11 @@ import java.io.Serializable;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Base64;
 import javax.net.ssl.HttpsURLConnection;
 
@@ -25,6 +30,11 @@ import javax.net.ssl.HttpsURLConnection;
  * @author csc190
  */
 public class Utils {
+
+    static final String DRIVER = "com.mysql.jdbc.Driver";
+    static final String URL = "jdbc:mysql://localhost/menu_db";
+    static final String USER = "root";
+    static final String PASS = "goodyear123!@#";
 
     /**
      *
@@ -82,21 +92,66 @@ public class Utils {
         con.setRequestProperty("User-Agent", "Mozilla/4.0 (compatible; MSIE 5.0;Windows98;DigExt)");
         con.setDoOutput(true);
         con.setDoInput(true);
-        
+
         //2. send request out
         DataOutputStream oos = new DataOutputStream(con.getOutputStream());
         oos.writeChars(datastr);
         oos.close();
-        
+
         //3. collect the https response
         DataInputStream iis = new DataInputStream(con.getInputStream());
         BufferedReader br = new BufferedReader(new InputStreamReader(iis));
         StringBuilder sb = new StringBuilder();
         String line = br.readLine();
-        while(line!=null){
+        while (line != null) {
             sb.append(line + "\n");
         }
         String sRet = sb.toString();
         return sRet;
     }
+
+    /**
+     * Return the first string in the last record in the query
+     *
+     * @param qry
+     * @return
+     */
+    public static String execQuery(String qry) {
+        String res = null;
+        try {
+            Class.forName(DRIVER);
+            Connection conn = DriverManager.getConnection(URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(qry);
+
+            while (rs.next()) {
+                res = rs.getString(1);
+
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return res;
+    }
+
+    public static void execNonQuery(String qry) {
+
+        try {
+            Class.forName(DRIVER);
+            Connection conn = DriverManager.getConnection(URL, USER, PASS);
+            Statement stmt = conn.createStatement();
+            int res = stmt.executeUpdate(qry);
+
+            stmt.close();
+            conn.close();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+
 }
