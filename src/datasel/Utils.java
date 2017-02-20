@@ -14,16 +14,15 @@ import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Base64;
-import javax.net.ssl.HttpsURLConnection;
 
 /**
  *
@@ -85,7 +84,7 @@ public class Utils {
     public static String httpsPost(String url, String datastr) throws Exception {
         //1. create url and request object
         URL urlObj = new URL(url);
-        HttpsURLConnection con = (HttpsURLConnection) urlObj.openConnection();
+        HttpURLConnection con = (HttpURLConnection) urlObj.openConnection();
         con.setRequestMethod("POST");
         con.setRequestProperty("Content-length", String.valueOf(datastr.length()));
         con.setRequestProperty("Content-Type", "application/x-www- form-urlencoded");
@@ -105,6 +104,7 @@ public class Utils {
         String line = br.readLine();
         while (line != null) {
             sb.append(line + "\n");
+            line = br.readLine();
         }
         String sRet = sb.toString();
         return sRet;

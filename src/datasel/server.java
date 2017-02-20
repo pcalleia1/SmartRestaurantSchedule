@@ -22,7 +22,13 @@ public class server {
         //1. retrieve all menu
         String qry = "SELECT val FROM objects WHERE name='menu'";
         String menuObjStr = Utils.execQuery(qry);
+        
+        
+        
+        
+        if(menuObjStr==null) return -2;
         Menu menu = (Menu) Utils.toObj(menuObjStr);
+        if(menu==null) return -3;
         Dish dish = menu.getDishById(id);
         if(dish==null) return -1;
         Procedure proc = dish.getProcedure();
