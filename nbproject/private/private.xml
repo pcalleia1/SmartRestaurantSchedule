@@ -3,9 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/csc190/Desktop/csc190/sample_java_server/datasel/src/datasel/Utils.java</file>
-            <file>file:/home/csc190/Desktop/csc190/sample_java_server/datasel/src/datasel/client.java</file>
-            <file>file:/home/csc190/Desktop/csc190/sample_java_server/datasel/src/datasel/server.java</file>
+            <file>file:/home/csc190/assignments/as6/uploader/SmartRestaurantSchedule/src/datasel/server.java</file>
+            <file>file:/home/csc190/assignments/as6/uploader/SmartRestaurantSchedule/src/datasel/model/Schedule.java</file>
+            <file>file:/home/csc190/assignments/as6/uploader/SmartRestaurantSchedule/src/datasel/client.java</file>
         </group>
     </open-files>
 </project-private>

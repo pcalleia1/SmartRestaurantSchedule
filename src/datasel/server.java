@@ -5,43 +5,41 @@
  */
 package datasel;
 
-import datasel.model.Dish;
-import datasel.model.Menu;
-import datasel.model.Procedure;
+
+import datasel.model.Schedule;
 
 /**
  *
- * @author csc190
+ * @author Philip Calleia
  */
 public class server {
-    protected static void updateMenu(String val){
-        String qry = "UPDATE objects SET val='" + val +"' WHERE name='menu'";
+    protected static void updateSchedule(String val){
+        String qry = "UPDATE tbl_schedule SET schedule='" + val +"' WHERE id='101'";
         Utils.execNonQuery(qry);
     }
-    protected static int getDishTime(String id){
-        //1. retrieve all menu
-        String qry = "SELECT val FROM objects WHERE name='menu'";
-        String menuObjStr = Utils.execQuery(qry);
+    protected static String[] getEmployee(String info){
+        
+        String qry = "SELECT schedule FROM tbl_schedule WHERE id='101'";
+        String schedObjStr = Utils.execQuery(qry);
         
         
         
         
-        if(menuObjStr==null) return -2;
-        Menu menu = (Menu) Utils.toObj(menuObjStr);
-        if(menu==null) return -3;
-        Dish dish = menu.getDishById(id);
-        if(dish==null) return -1;
-        Procedure proc = dish.getProcedure();
-        if(proc==null) return -1;
-        return proc.getWaitTime();
+        if((schedObjStr==null) && (schedObjStr!="dummy"))  return null;
+        Schedule sched = (Schedule) Utils.toObj(schedObjStr);
+        if(sched==null) return null;
+        
+        String[] arguments = info.split("_");
+        return sched.getGuyBySchedule(arguments[0],Byte.parseByte(arguments[1]),arguments[2]);
+        
     }
     public static void main(String [] args){
         String op = args[0];
-        if(op.equals("uploadMenu")){
-            updateMenu(args[1]);
+        if(op.equals("uploadSchedule")){
+            updateSchedule(args[1]);
         }else{
-            int time = getDishTime(args[1]);
-            System.out.println(time);
+            String[] employees = getEmployee(args[1]);
+            System.out.println(employees);
         }
     }
 }

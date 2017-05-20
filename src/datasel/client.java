@@ -5,11 +5,9 @@
  */
 package datasel;
 
-import com.google.gson.Gson;
-import datasel.model.Dish;
-import datasel.model.Menu;
-import datasel.model.Procedure;
-import datasel.model.Step;
+//import com.google.gson.Gson;
+import datasel.model.Employee;
+import datasel.model.Schedule;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 import java.net.URLEncoder;
@@ -17,78 +15,58 @@ import java.util.Base64;
 
 /**
  *
- * @author csc190
+ * @author Philip Calleia
  */
 public class client {
 
-    protected static Menu buildMenu() {
-        Step[] arrStepSteak = new Step[]{
-            new Step("step 1", "preheat oven", 10),
-            new Step("step 2", "put steak in oven", 1),
-            new Step("step 3", "wait and check temperature", 5),
-            new Step("step 4", "take out steak", 1)
-        };
-        Step[] arrStepKungPaoChicken = new Step[]{
-            new Step("s1", "marinate the chicken using oyster sauce", 30),
-            new Step("s2", "put chicken in deep fryer", 10),
-            new Step("s3", "take the chicken out", 1)
-        };
-        Procedure procSteak = new Procedure("Steak", arrStepSteak);
-        Procedure procChicken = new Procedure("KungPaoChicken", arrStepKungPaoChicken);
-        Dish[] arrDishes = new Dish[]{
-            new Dish("101", "Steak", 29.99f, procSteak),
-            new Dish("102", "KungPaoChicken", 28.99f, procChicken)
-        };
-        Menu menu = new Menu(arrDishes);
-        return menu;
+    protected static Schedule buildSchedule() {
+        Employee drEvil = new Employee(101, "Dr. Evil", new String[]{"Bu", "S", "Ba"},
+                new String[]{"M", "W", "F"}, new byte[]{9, 10, 11, 12, 19, 20});
+        Employee miniMe = new Employee(102, "Mini Me", new String[]{"S", "Ba"},
+                new String[]{"T", "W", "F"}, new byte[]{9, 10, 12, 14, 15, 16, 17, 18});
+        Employee numTwo = new Employee(103, "Number Two", new String[]{"Bu", "D"},
+                new String[]{"M", "F"}, new byte[]{12, 13, 14, 15, 16, 17, 18});        
+        Employee austinPow = new Employee(104, "Austin Power", new String[]{"Ba", "S"},
+                new String[]{"T", "R"}, new byte[]{8, 9, 10, 11, 12, 13, 14});
+        Employee[] arrEmploys = new Employee[]{drEvil, miniMe, numTwo, austinPow};
+        Schedule sched = new Schedule(arrEmploys);
+        return sched;
     }
 
-    /**
-     * Serialization. Convert Menu to byte array, and then encode using base64
-     *
-     * @param menu
-     * @return
-     */
-    protected static String menuToStr(Menu menu) {
-        try {
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject(menu);
-            byte[] barrOut = bos.toByteArray();
-            byte[] b64Out = Base64.getEncoder().encode(barrOut);
-            int len1 = barrOut.length;
-            int len2 = b64Out.length;
-            String sRet = new String(b64Out);
-            sRet = URLEncoder.encode(sRet, "UTF-8");
-            return sRet;
-        } catch (Exception exc) {
-            System.out.println(exc);
-            return null;
-        }
-    }
+//    /**
+//     * Serialization. Convert Menu to byte array, and then encode using base64
+//     *
+//     * @param menu
+//     * @return
+//     */
+//    protected static String menuToStr(Menu menu) {
+//        try {
+//            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//            ObjectOutputStream oos = new ObjectOutputStream(bos);
+//            oos.writeObject(menu);
+//            byte[] barrOut = bos.toByteArray();
+//            byte[] b64Out = Base64.getEncoder().encode(barrOut);
+//            int len1 = barrOut.length;
+//            int len2 = b64Out.length;
+//            String sRet = new String(b64Out);
+//            sRet = URLEncoder.encode(sRet, "UTF-8");
+//            return sRet;
+//        } catch (Exception exc) {
+//            System.out.println(exc);
+//            return null;
+//        }
+//    }
 
-    protected static String menuToJsonStr(Menu menu) {
-        try {
-            Gson gson = new Gson();
-            String sRet = gson.toJson(menu);
-            sRet = new String(Base64.getEncoder().encode(sRet.getBytes()));
-            sRet = URLEncoder.encode(sRet, "UTF-8");
-            return sRet;
-        } catch (Exception exc) {
-            System.out.println(exc);
-            return null;
-        }
 
-    }
 
     public static void main(String[] args) {
-        String op = args[0];
-        Menu menu = buildMenu();
+        String op = "2";
+        Schedule mySched = buildSchedule();
         String url = "http://localhost/datasel.php";
-        String menuContent = Utils.toStr(menu);
+        String schedContent = Utils.toStr(mySched);
         String datastr = op.equals("1")
-                ? "op=uploadMenu&val=" + menuContent
-                : "op=getWaitTime&val=101";
+                ? "op=uploadSchedule&val=" + schedContent
+                : "op=getEmployee&val=W_12_Bu";
         try {
             String response = Utils.httpsPost(url, datastr);
             System.out.println(response);

@@ -1,0 +1,8 @@
+DROP DATABASE IF EXISTS lib_db;
+CREATE DATABASE lib_db;
+USE lib_db;
+CREATE TABLE tbl_schedule(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	schedule VARCHAR(65500)
+) AUTO_INCREMENT=101;
+INSERT INTO tbl_schedule (schedule) VALUES ("dummy");

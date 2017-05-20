@@ -5,7 +5,7 @@
  */
 package experiments;
 
-import com.google.gson.Gson;
+//import com.google.gson.Gson;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectOutputStream;
 
@@ -23,9 +23,9 @@ public class testRunner {
             b.val = "instance B";
             b.refA = a;
             a.refB = b;
-            Gson gson = new Gson();
-            String str = gson.toJson(a);
-            System.out.println(str);
+//            Gson gson = new Gson();
+//            String str = gson.toJson(a);
+//            System.out.println(str);
 
             //use standard java serialization
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
